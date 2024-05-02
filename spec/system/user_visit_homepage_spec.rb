@@ -2,9 +2,12 @@ require 'rails_helper'
 
 describe 'User view homepage' do
   it 'views warehouses' do
-    # Arrange 
+    # Arrange
+    json_data = File.read(Rails.root.join('spec/support/json/warehouses.json'))
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses').and_return(fake_response)
 
-    # Act 
+    # Act
     visit root_path
 
     # Assert
@@ -15,5 +18,18 @@ describe 'User view homepage' do
     expect(page).to have_content 'Rio'
     expect(page).to have_content 'SDU'
     expect(page).to have_content 'Rio de Janeiro'
+  end
+
+  it 'there are no warehouses' do
+    # Arrange
+    fake_response = double('faraday_response', status: 200, body: '[]')
+
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses').and_return(fake_response)
+
+    # Act
+    visit root_path
+
+    # Assert
+    expect(page).to have_content 'Nenhum galpão encontrado'
   end
 end

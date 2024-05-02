@@ -1,8 +1,13 @@
 <h1>E-Commerce App</h1>
 
-<% @warehouses.each do |warehouse| %>
-  <%= warehouse.name %>
+<% if @warehouses.empty? %>
+  <p>Nenhum galpão encontrado</p>
 <% end %>
 
-<p>Dados do Response</p>
-<%= @data %>
+<% @warehouses.each do |warehouse| %>
+  <div>
+    <p><%= warehouse['name'] %></p>
+    <p><%= warehouse['code'] %></p>
+    <p><%= warehouse['city'] %></p>
+  </div>
+<% end %>

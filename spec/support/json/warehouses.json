@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Aeroporto SP",
+        "code": "GRU",
+        "city": "Guarulhos",
+        "area": 100000,
+        "created_at": "2024-05-01T09:33:30.574Z",
+        "updated_at": "2024-05-01T09:33:30.574Z",
+        "address": "Avenida do Aeroporto, 1000",
+        "cep": "15000-000",
+        "description": "Galpão destinado para cargas internacionais"
+    },
+    {
+        "id": 2,
+        "name": "Rio",
+        "code": "SDU",
+        "city": "Rio de Janeiro",
+        "area": 60000,
+        "created_at": "2024-05-01T09:33:30.579Z",
+        "updated_at": "2024-05-01T09:33:30.579Z",
+        "address": "Av do Porto, 1000",
+        "cep": "20000-000",
+        "description": "Galpão do Rio"
+    }
+]
