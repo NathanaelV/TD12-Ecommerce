@@ -6,8 +6,8 @@
 
 <% @warehouses.each do |warehouse| %>
   <div>
-    <p><%= link_to warehouse['name'], warehouse_path(warehouse['id']) %></p>
-    <p><%= warehouse['code'] %></p>
-    <p><%= warehouse['city'] %></p>
+    <p><%= link_to warehouse.name, warehouse_path(warehouse.id) %></p>
+    <p><%= warehouse.code %></p>
+    <p><%= warehouse.city %></p>
   </div>
 <% end %>

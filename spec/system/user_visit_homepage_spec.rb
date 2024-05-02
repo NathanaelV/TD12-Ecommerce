@@ -54,4 +54,22 @@ describe 'User view homepage' do
     expect(page).to have_content 'Avenida do Aeroporto, 1000 - CEP: 15000-000'
     expect(page).to have_content 'Galpão destinado para cargas internacionais'
   end
+
+  it 'unable to load warehouse' do
+    # Arrange
+    json_data = File.read(Rails.root.join('spec/support/json/warehouses.json'))
+    fake_response = double('faraday_response', status: 200, body: json_data)
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses').and_return(fake_response)
+
+    fake_response = double('faraday_response', status: 500, body: '{}')
+    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses/1').and_return(fake_response)
+
+    # Act
+    visit root_path
+    click_on 'Aeroporto SP'
+
+    # Assert
+    expect(page).to have_content 'Não foi possível carregar o galpão'
+    expect(current_path).to eq root_path
+  end
 end
