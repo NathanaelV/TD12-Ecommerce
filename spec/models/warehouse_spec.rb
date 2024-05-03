@@ -30,5 +30,17 @@ describe Warehouse do
       expect(result.last.cep).to eq '20000-000'
       expect(result.last.description).to eq 'Galpão do Rio'
     end
+
+    it 'return empty if API is unavailable' do
+      # Arrange
+      fake_response = double('faraday_response', status: 500, body: '{ "error": "Error ao obter dados"}')
+      allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses').and_return(fake_response)
+
+      # Act
+      result = Warehouse.all
+
+      # Assert
+      expect(result).to eq []
+    end
   end
 end

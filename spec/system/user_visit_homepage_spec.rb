@@ -3,9 +3,14 @@ require 'rails_helper'
 describe 'User view homepage' do
   it 'views warehouses' do
     # Arrange
-    json_data = File.read(Rails.root.join('spec/support/json/warehouses.json'))
-    fake_response = double('faraday_response', status: 200, body: json_data)
-    allow(Faraday).to receive(:get).with('http://localhost:3000/api/v1/warehouses').and_return(fake_response)
+    warehouses = []
+    warehouses << Warehouse.new(id: 1, name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
+                                address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
+                                description: 'Galpão destinado para cargas internacionais')
+    warehouses << Warehouse.new(id: 2, name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+                                address: 'Av do Porto, 1000', cep: '20000-000',
+                                description: 'Galpão do Rio')
+    allow(Warehouse).to receive(:all).and_return(warehouses)
 
     # Act
     visit root_path

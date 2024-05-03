@@ -16,10 +16,14 @@ class Warehouse
     warehouses = []
     response = Faraday.get('http://localhost:3000/api/v1/warehouses')
     data = JSON.parse(response.body)
-    data.each do |d|
-      warehouses << Warehouse.new(id: d['id'], name: d['name'], code: d['code'], city: d['city'], area: d['area'],
-                                  address: d['address'], cep: d['cep'], description: d['description'])
+
+    if response.status == 200
+      data.each do |d|
+        warehouses << Warehouse.new(id: d['id'], name: d['name'], code: d['code'], city: d['city'], area: d['area'],
+                                    address: d['address'], cep: d['cep'], description: d['description'])
+      end
     end
+
     warehouses
   end
 end
